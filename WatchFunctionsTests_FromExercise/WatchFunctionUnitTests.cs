@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Http.Internal;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Primitives;
 using Microsoft.Extensions.Logging.Abstractions;
-using System;
+using System.Collections.Generic;
 using Xunit;
 
 namespace WatchFunctionsTests_FromExercise
@@ -17,13 +17,9 @@ namespace WatchFunctionsTests_FromExercise
             var queryStringValue = "abc";
             var request = new DefaultHttpRequest(new DefaultHttpContext())
             {
-                Query = new QueryCollection
-                (
-                    new System.Collections.Generic.Dictionary<string, StringValues>()
-                    {
-            { "model", queryStringValue }
-                    }
-                )
+                Query = new QueryCollection(
+                        new Dictionary<string, StringValues>()
+                        { { "model", queryStringValue } })
             };
 
             var logger = NullLoggerFactory.Instance.CreateLogger("Null Logger");
@@ -36,9 +32,14 @@ namespace WatchFunctionsTests_FromExercise
             // Check that the contents of the response are the expected contents
             var result = (OkObjectResult)response.Result;
 
-            dynamic watchinfo = new { Manufacturer = "Abc", CaseType = "Solid", Bezel = "Titanium", Dial = "Roman", CaseFinish = "Silver", Jewels = 15 };
+            dynamic watchinfo = new { Manufacturer = "Abc", CaseType = "Solid", 
+                Bezel = "Titanium", Dial = "Roman", CaseFinish = "Silver", 
+                Jewels = 15 };
 
-            string watchInfo = $"Watch Details: {watchinfo.Manufacturer}, {watchinfo.CaseType}, {watchinfo.Bezel}, {watchinfo.Dial}, {watchinfo.CaseFinish}, {watchinfo.Jewels}";
+            string watchInfo = 
+                $"Watch Details: {watchinfo.Manufacturer}, " +
+                $"{watchinfo.CaseType}, {watchinfo.Bezel}, {watchinfo.Dial}, " +
+                $"{watchinfo.CaseFinish}, {watchinfo.Jewels}";
 
             Assert.Equal(watchInfo, result.Value);
         }
@@ -58,7 +59,8 @@ namespace WatchFunctionsTests_FromExercise
 
             // Check that the contents of the response are the expected contents
             var result = (BadRequestObjectResult)response.Result;
-            Assert.Equal("Please provide a watch model in the query string", result.Value);
+            Assert.Equal("Please provide a watch model in the query string", 
+                result.Value);
         }
 
         [Fact]
@@ -70,10 +72,8 @@ namespace WatchFunctionsTests_FromExercise
             {
                 Query = new QueryCollection
                 (
-                    new System.Collections.Generic.Dictionary<string, StringValues>()
-                    {
-                { "not-model", queryStringValue }
-                    }
+                    new Dictionary<string, StringValues>() 
+                        { { "not-model", queryStringValue } }
                 )
             };
 
@@ -87,7 +87,9 @@ namespace WatchFunctionsTests_FromExercise
 
             // Check that the contents of the response are the expected contents
             var result = (BadRequestObjectResult)response.Result;
-            Assert.Equal("Please provide a watch model in the query string", result.Value);
+
+            Assert.Equal("Please provide a watch model in the query string", 
+                result.Value);
         }
 
     }

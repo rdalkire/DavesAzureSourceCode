@@ -3,14 +3,28 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30413.136
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WatchPortalFunction", "WatchPortalFunction\WatchPortalFunction.csproj", "{8D0BC988-738A-4305-98A1-EBD72F4452C8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WatchFunction.FunctionApp", "WatchPortalFunction\WatchFunction.FunctionApp.csproj", "{8D0BC988-738A-4305-98A1-EBD72F4452C8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WatchFunctionTests", "WatchFunctionTests\WatchFunctionTests.csproj", "{8E632CDB-5554-474A-9B8B-7998D3EC543D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WatchFunction.IntegrationTests", "WatchFunctionTests\WatchFunction.IntegrationTests.csproj", "{8E632CDB-5554-474A-9B8B-7998D3EC543D}"
 	ProjectSection(ProjectDependencies) = postProject
 		{8D0BC988-738A-4305-98A1-EBD72F4452C8} = {8D0BC988-738A-4305-98A1-EBD72F4452C8}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WatchFunctionsTests_FromExercise", "WatchFunctionsTests_FromExercise\WatchFunctionsTests_FromExercise.csproj", "{AB708661-53EF-4553-9B45-4A59D7FCC2AE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WatchFunction.TestsFromExercise", "WatchFunctionsTests_FromExercise\WatchFunction.TestsFromExercise.csproj", "{AB708661-53EF-4553-9B45-4A59D7FCC2AE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Saeb.FunctionApp.Domain", "Saeb.FunctionApp\Saeb.FunctionApp.Domain\Saeb.FunctionApp.Domain.csproj", "{38571018-8E1F-4AC5-94D0-ED1807092A32}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Saeb.FunctionApp.FunctionApp", "Saeb.FunctionApp\Saeb.FunctionApp.FunctionApp\Saeb.FunctionApp.FunctionApp.csproj", "{E6F48570-4B9F-43D4-A9C5-70513BFF5E89}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Saeb.FunctionApp.IntegrationTests", "Saeb.FunctionApp\Saeb.FunctionApp.IntegrationTests\Saeb.FunctionApp.IntegrationTests.csproj", "{AAECAC43-8643-4FAF-A04E-DE6B64E0941B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WatchFunction.Domain", "WatchFunction.Domain\WatchFunction.Domain.csproj", "{1F5ACB7E-D943-49B6-BB5A-019F347F2030}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{6D7FEF3A-1BFB-4D3B-95D0-C7C765B64E8B}"
+	ProjectSection(SolutionItems) = preProject
+		.gitattributes = .gitattributes
+		.gitignore = .gitignore
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -30,6 +44,22 @@ Global
 		{AB708661-53EF-4553-9B45-4A59D7FCC2AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AB708661-53EF-4553-9B45-4A59D7FCC2AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AB708661-53EF-4553-9B45-4A59D7FCC2AE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{38571018-8E1F-4AC5-94D0-ED1807092A32}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{38571018-8E1F-4AC5-94D0-ED1807092A32}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{38571018-8E1F-4AC5-94D0-ED1807092A32}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{38571018-8E1F-4AC5-94D0-ED1807092A32}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E6F48570-4B9F-43D4-A9C5-70513BFF5E89}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E6F48570-4B9F-43D4-A9C5-70513BFF5E89}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E6F48570-4B9F-43D4-A9C5-70513BFF5E89}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E6F48570-4B9F-43D4-A9C5-70513BFF5E89}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AAECAC43-8643-4FAF-A04E-DE6B64E0941B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AAECAC43-8643-4FAF-A04E-DE6B64E0941B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AAECAC43-8643-4FAF-A04E-DE6B64E0941B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AAECAC43-8643-4FAF-A04E-DE6B64E0941B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1F5ACB7E-D943-49B6-BB5A-019F347F2030}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F5ACB7E-D943-49B6-BB5A-019F347F2030}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F5ACB7E-D943-49B6-BB5A-019F347F2030}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F5ACB7E-D943-49B6-BB5A-019F347F2030}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

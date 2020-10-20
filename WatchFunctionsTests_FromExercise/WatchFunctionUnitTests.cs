@@ -1,19 +1,42 @@
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Internal;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Primitives;
 using Microsoft.Extensions.Logging.Abstractions;
-using System.Collections.Generic;
+using Microsoft.Extensions.Primitives;
+using WatchFunction.Domain;
+using WatchFunction.FunctionApp;
 using Xunit;
 
-namespace WatchFunctionsTests_FromExercise
+namespace WatchFunction.TestsFromExercise
 {
+    class TestWatchProvider : IWatchInfoProvider
+    {
+        public WatchItem Item { get; set; }
+
+        public WatchItem ProvideWatchItem( string model )
+        {
+            return Item;
+        }
+    }
     public class WatchFunctionUnitTests
     {
+        static readonly IWatchInfoProvider TestProvider= new TestWatchProvider()
+        {
+            Item = new WatchItem()
+            {
+                Manufacturer = "Abc",
+                CaseType = "Solid",
+                Bezel = "Titanium",
+                Dial = "Roman",
+                CaseFinish = "Silver",
+                Jewels = 15
+            }
+        };
+
         [Fact]
         public void TestWatchFunctionSuccess()
         {
-            // var httpContext = new DefaultHttpContext();
             var queryStringValue = "abc";
             var request = new DefaultHttpRequest(new DefaultHttpContext())
             {
@@ -23,18 +46,17 @@ namespace WatchFunctionsTests_FromExercise
             };
 
             var logger = NullLoggerFactory.Instance.CreateLogger("Null Logger");
-            var response = WatchPortalFunction.WatchInfo.Run(request, logger);
-            response.Wait();
+
+            var response = new WatchInfoFunction(TestProvider).
+                Run(request, logger);
 
             // Check that the response is an "OK" response
-            Assert.IsAssignableFrom<OkObjectResult>(response.Result);
+            Assert.IsAssignableFrom<OkObjectResult>(response);
 
             // Check that the contents of the response are the expected contents
-            var result = (OkObjectResult)response.Result;
+            var result = (OkObjectResult)response;
 
-            dynamic watchinfo = new { Manufacturer = "Abc", CaseType = "Solid", 
-                Bezel = "Titanium", Dial = "Roman", CaseFinish = "Silver", 
-                Jewels = 15 };
+            var watchinfo = TestProvider.ProvideWatchItem("realModel");
 
             string watchInfo = 
                 $"Watch Details: {watchinfo.Manufacturer}, " +
@@ -47,18 +69,17 @@ namespace WatchFunctionsTests_FromExercise
         [Fact]
         public void TestWatchFunctionFailureNoQueryString()
         {
-            var httpContext = new DefaultHttpContext();
             var request = new DefaultHttpRequest(new DefaultHttpContext());
             var logger = NullLoggerFactory.Instance.CreateLogger("Null Logger");
 
-            var response = WatchPortalFunction.WatchInfo.Run(request, logger);
-            response.Wait();
+            var response = new WatchInfoFunction(TestProvider).
+                Run(request, logger);
 
             // Check that the response is an "Bad" response
-            Assert.IsAssignableFrom<BadRequestObjectResult>(response.Result);
+            Assert.IsAssignableFrom<BadRequestObjectResult>(response);
 
             // Check that the contents of the response are the expected contents
-            var result = (BadRequestObjectResult)response.Result;
+            var result = (BadRequestObjectResult)response;
             Assert.Equal("Please provide a watch model in the query string", 
                 result.Value);
         }
@@ -66,7 +87,6 @@ namespace WatchFunctionsTests_FromExercise
         [Fact]
         public void TestWatchFunctionFailureNoModel()
         {
-            var httpContext = new DefaultHttpContext();
             var queryStringValue = "abc";
             var request = new DefaultHttpRequest(new DefaultHttpContext())
             {
@@ -79,18 +99,17 @@ namespace WatchFunctionsTests_FromExercise
 
             var logger = NullLoggerFactory.Instance.CreateLogger("Null Logger");
 
-            var response = WatchPortalFunction.WatchInfo.Run(request, logger);
-            response.Wait();
+            var response = new WatchInfoFunction(TestProvider).
+                Run(request, logger);
 
             // Check that the response is an "Bad" response
-            Assert.IsAssignableFrom<BadRequestObjectResult>(response.Result);
+            Assert.IsAssignableFrom<BadRequestObjectResult>(response);
 
             // Check that the contents of the response are the expected contents
-            var result = (BadRequestObjectResult)response.Result;
+            var result = (BadRequestObjectResult)response;
 
             Assert.Equal("Please provide a watch model in the query string", 
                 result.Value);
         }
-
     }
 }

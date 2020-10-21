@@ -31,10 +31,13 @@ namespace WatchFunction.TestsFromExercise
             // arrange
             var context = new DefaultHttpContext();
 
-            var req = new Microsoft.AspNetCore.Http.Internal.
-                DefaultHttpRequest(context);
+            //var req = new Microsoft.AspNetCore.Http.Internal.
+            //    DefaultHttpRequest(context);
+
+            var req = context.Request;
 
             req.QueryString = QueryString.Create("model", "any");
+
             var logger = NullLoggerFactory.Instance.CreateLogger("Null Logger");
 
             // act

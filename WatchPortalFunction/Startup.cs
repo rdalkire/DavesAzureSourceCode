@@ -10,7 +10,7 @@ using WatchFunction.FunctionApp;
 
 namespace WatchFunction.FunctionApp
 {
-    class Startup: FunctionsStartup
+    public class Startup: FunctionsStartup
     {
         public override void Configure(IFunctionsHostBuilder builder)
         {

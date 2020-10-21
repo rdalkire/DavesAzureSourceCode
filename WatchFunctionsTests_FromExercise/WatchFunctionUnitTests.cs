@@ -1,9 +1,8 @@
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.Internal;
+// using Microsoft.AspNetCore.Http.Internal;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging.Abstractions;
-using Microsoft.Extensions.Primitives;
 using WatchFunction.Domain;
 using WatchFunction.FunctionApp;
 using Xunit;
@@ -37,13 +36,8 @@ namespace WatchFunction.TestsFromExercise
         [Fact]
         public void TestWatchFunctionSuccess()
         {
-            var queryStringValue = "abc";
-            var request = new DefaultHttpRequest(new DefaultHttpContext())
-            {
-                Query = new QueryCollection(
-                        new Dictionary<string, StringValues>()
-                        { { "model", queryStringValue } })
-            };
+            var request = new DefaultHttpContext().Request;
+            request.QueryString = QueryString.Create("model", "any");
 
             var logger = NullLoggerFactory.Instance.CreateLogger("Null Logger");
 
@@ -69,7 +63,7 @@ namespace WatchFunction.TestsFromExercise
         [Fact]
         public void TestWatchFunctionFailureNoQueryString()
         {
-            var request = new DefaultHttpRequest(new DefaultHttpContext());
+            var request = new DefaultHttpContext().Request;
             var logger = NullLoggerFactory.Instance.CreateLogger("Null Logger");
 
             var response = new WatchInfoFunction(TestProvider).
@@ -87,15 +81,8 @@ namespace WatchFunction.TestsFromExercise
         [Fact]
         public void TestWatchFunctionFailureNoModel()
         {
-            var queryStringValue = "abc";
-            var request = new DefaultHttpRequest(new DefaultHttpContext())
-            {
-                Query = new QueryCollection
-                (
-                    new Dictionary<string, StringValues>() 
-                        { { "not-model", queryStringValue } }
-                )
-            };
+            var request = new DefaultHttpContext().Request;
+            request.QueryString = QueryString.Create("not-model", "any");
 
             var logger = NullLoggerFactory.Instance.CreateLogger("Null Logger");
 

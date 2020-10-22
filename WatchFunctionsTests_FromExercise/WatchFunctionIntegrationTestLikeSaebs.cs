@@ -31,9 +31,6 @@ namespace WatchFunction.TestsFromExercise
             // arrange
             var context = new DefaultHttpContext();
 
-            //var req = new Microsoft.AspNetCore.Http.Internal.
-            //    DefaultHttpRequest(context);
-
             var req = context.Request;
 
             req.QueryString = QueryString.Create("model", "any");
@@ -48,9 +45,19 @@ namespace WatchFunction.TestsFromExercise
             // assert
             Assert.Equal( 200, result.StatusCode );
 
-            Assert.StartsWith( 
-                "Watch Details: We Don't Make Watches", resultValue );
+            Assert.StartsWith("Watch Details: Abc", resultValue );
         }
+    }
 
+    public class TestWatchInfoProvider : IWatchInfoProvider
+    {
+        public WatchItem ProvideWatchItem(string model)
+        {
+            return new WatchItem()
+            {
+                Manufacturer = "Abc", CaseType = "Solid", Bezel = "Titanium",
+                Dial = "Roman", CaseFinish = "Silver", Jewels = 15
+            };
+        }
     }
 }

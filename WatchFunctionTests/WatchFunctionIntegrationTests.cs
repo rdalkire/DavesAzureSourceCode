@@ -1,15 +1,7 @@
-/*****
- * The original exercise, found at [Exercise - Unit test an Azure Function](https://docs.microsoft.com/en-us/learn/modules/develop-test-deploy-azure-functions-with-visual-studio/6-unit-test-azure-functions),
- * is not compatible with dotnet core 3.1, because Microsoft stopped supporting
- * "Pupternal" APIs, specifically for this case,
- * Microsoft.AspNetCore.Http.Internal.DefaultHttpRequest
- * See [..."Pubternal" APIs removed](https://docs.microsoft.com/en-us/dotnet/core/compatibility/2.2-3.1#pubternal-apis-removed)
- *
- * Instead I'm using guidance from the article [Integration tests in ASP.NET Core](https://docs.microsoft.com/en-us/aspnet/core/test/integration-tests?view=aspnetcore-3.1)
- * 
- ****/
-
+using System;
+using System.Net.Http;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Testing;
 using WatchFunction.FunctionApp;
 using WatchFunction.IntegrationTests.Infrastructure;
@@ -33,11 +25,12 @@ namespace WatchFunction.IntegrationTests
         {
             // Arrange
             var client = _factory.CreateClient();
-
-            // var request = client
+            var request = new HttpRequestMessage();
+            var queryString = QueryString.Create("model", "any");
+            request.RequestUri = new Uri( "/" + queryString );
 
             // Act
-            var response = await client.GetAsync("/?model=any");
+            var response = await client.SendAsync(request);
 
             // Assert
             Assert.True( response.IsSuccessStatusCode );

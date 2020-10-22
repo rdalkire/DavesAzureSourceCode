@@ -1,0 +1,3 @@
+[submodule "Saeb.FunctionApp"]
+		path = Saeb.FunctionApp
+		url = https://github.com/SaebAmini/Saeb.FunctionApp

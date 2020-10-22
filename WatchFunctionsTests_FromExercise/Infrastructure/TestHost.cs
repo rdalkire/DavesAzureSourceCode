@@ -3,7 +3,9 @@ using System.IO;
 using Microsoft.Azure.Functions.Extensions.DependencyInjection;
 using Microsoft.Azure.WebJobs.Host.Bindings;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
+using WatchFunction.Domain;
 using WatchFunction.FunctionApp;
 
 namespace WatchFunction.TestsFromExercise.Infrastructure
@@ -25,7 +27,7 @@ namespace WatchFunction.TestsFromExercise.Infrastructure
 
 		private void ReplaceTestOverrides(IServiceCollection services)
 		{
-			// services.Replace(new ServiceDescriptor(typeof(ServiceToReplace), testImplementation));
+			services.Replace(new ServiceDescriptor(typeof(IWatchInfoProvider), new TestWatchInfoProvider()));
 		}
 
 		private class TestStartup : Startup

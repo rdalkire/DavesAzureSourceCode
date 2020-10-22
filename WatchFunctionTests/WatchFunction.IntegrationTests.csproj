@@ -21,6 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\WatchFunctionsTests_FromExercise\WatchFunction.TestsFromExercise.csproj" />
     <ProjectReference Include="..\WatchPortalFunction\WatchFunction.FunctionApp.csproj" />
   </ItemGroup>
 

@@ -21,16 +21,9 @@ namespace WatchFunction.IntegrationTests.Infrastructure
             HostBuilder = new HostBuilder()
                 .ConfigureWebJobs(startup.Configure)
                 .ConfigureServices(ReplaceTestOverrides);
+        }
 
-            // TODO clean up commented code
-			// var host = HostBuilder.Build();
-
-			// ServiceProvider = host.Services;
-		}
-
-        // public IServiceProvider ServiceProvider { get; }
-
-		private void ReplaceTestOverrides(IServiceCollection services)
+        private void ReplaceTestOverrides(IServiceCollection services)
 		{
 			// services.Replace(new ServiceDescriptor(typeof(ServiceToReplace), testImplementation));
 		}
@@ -53,15 +46,8 @@ namespace WatchFunction.IntegrationTests.Infrastructure
 
     public class TestWebApplicationFactory<TEntryPoint> : WebApplicationFactory<TEntryPoint> where TEntryPoint : class
     {
-        //protected override IHostBuilder CreateHostBuilder()
-        //{
-        //    var builder = new TestHost().HostBuilder;
-        //    return builder;
-        //}
-
         protected override IWebHostBuilder CreateWebHostBuilder()
         {
-            // var startup = new TestStartup();
 
             var builder = new WebHostBuilder().
                 UseStartup(typeof(TestStartup)).

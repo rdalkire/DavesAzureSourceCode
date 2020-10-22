@@ -3,4 +3,4 @@
 		url = https://github.com/SaebAmini/Saeb.FunctionApp
 [submodule "azure-functions-tests"]
 	path = azure-functions-tests
-	url = https://github.com/Azure-Samples/azure-functions-tests
+	url = https://github.com/rdalkire/azure-functions-tests/tree/rdalkire-nixInternalNamespaceRefs
